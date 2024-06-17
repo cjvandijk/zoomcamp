@@ -10,6 +10,8 @@ gunicorn = "*"
 mlflow = "*"
 boto3 = "*"
 jupyter = "*"
+botocore = "*"
+s3fs = "*"
 
 [dev-packages]
 requests = "*"

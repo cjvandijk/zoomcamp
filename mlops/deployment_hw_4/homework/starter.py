@@ -1,6 +1,12 @@
 #!/usr/bin/env python
 # coding: utf-8
+
 import argparse
+# import logging
+
+# import boto3
+# from botocore.exceptions import ClientError
+# import s3fs
 import pickle
 import pandas as pd
 from typing import Tuple
@@ -27,6 +33,18 @@ def read_data(filename: str) -> pd.DataFrame:
     return df
 
 
+def dataframe_to_s3(s3_client, input_datafame, bucket_name, filepath, format):
+        if format == 'parquet':
+            out_buffer = BytesIO()
+            input_datafame.to_parquet(out_buffer, index=False)
+
+        elif format == 'csv':
+            out_buffer = StringIO()
+            input_datafame.to_parquet(out_buffer, index=False)
+
+        s3_client.put_object(Bucket=bucket_name, Key=filepath, Body=out_buffer.getvalue())
+
+
 OUTPUT_FILE = "ride_pred_results.parquet"
 categorical = ['PULocationID', 'DOLocationID']
 year, month = parse_arguments()
@@ -51,7 +69,7 @@ df['predicted_duration'] = y_pred
 
 df_result = df[['ride_id', 'predicted_duration']]
 
-print(f"Printing results to {OUTPUT_FILE}")
+print(f"Saving results to {OUTPUT_FILE}")
 df_result.to_parquet(
     OUTPUT_FILE,
     engine='pyarrow',
@@ -59,4 +77,20 @@ df_result.to_parquet(
     index=False
 )
 
+print(f"Uploading {OUTPUT_FILE} to s3://claudia-mlops.")
+df.to_parquet(f's3://claudia-mlops/results/{OUTPUT_FILE}.gzip',
+              engine='pyarrow',
+              compression=None,
+              index=False)
 
+
+
+# s3 = s3fs.S3FileSystem(anon=False)  # uses default credentials
+# with s3.open(f'claudia-mlops/results/{OUTPUT_FILE}', 'wb') as f:
+#     df_result.to_parquet(
+#         OUTPUT_FILE,
+#         engine='pyarrow',
+#         compression=None,
+#         index=False
+#     )
+# s3.du('mybucket/new-file')
