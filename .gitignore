@@ -2,3 +2,4 @@
 mlflow_hw2/testing_with_notebooks/
 mlops/deployment_hw_4/homework/*.parquet
 mlops/deployment_hw_4/homework/ride_pred_results.parquet
+mlops/deployment_hw_4/homework/ride_pred_results.parquet
