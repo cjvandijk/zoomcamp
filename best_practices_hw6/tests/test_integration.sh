@@ -21,6 +21,6 @@ if [ ${ERROR_CODE} != 0 ]; then
     docker-compose logs
 fi
 
-# docker-compose down
+docker-compose down
 
-# exit ${ERROR_CODE}
+exit ${ERROR_CODE}
