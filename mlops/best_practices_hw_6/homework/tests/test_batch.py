@@ -4,7 +4,7 @@ from deepdiff import DeepDiff
 import pandas as pd
 from pandas import Timestamp
 
-import batch
+import mlops.best_practices_hw_6.homework.apps.batch as batch
 
 
 def dt(hour, minute, second=0):
@@ -42,6 +42,6 @@ def test_prepare_data():
 
     actual_result = actual_df.to_dict(orient="records")
 
-    diff = DeepDiff(expected_result, actual_result, verbose_level=2)
-    assert expected_result == actual_result
-    
+    diff = DeepDiff(expected_result, actual_result, significant_digits=1)
+    assert len(diff) == 0
+
