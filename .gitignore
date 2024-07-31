@@ -1,3 +1,20 @@
 .DS_Store
-mlflow_hw2/testing_with_notebooks/
+.env
 *.parquet
+.ipynb_checkpoints
+.gitkeep
+.log
+.logs/
+.mage_temp_profiles
+.preferences.yaml
+.ssh_tunnel
+__pycache__/
+logs/
+mlruns/
+
+# Data
+mage_data/
+mage-ai.db
+artifacts_local/
+mlruns/
+testing_with_notebooks/
