@@ -43,10 +43,11 @@ Run batch.py with YYYY and MM args
 `python batch.py 2023 3`
 
 ## ISSUES
-HW Q4
+Homework Question 4
 * Reading from Localstack s3 with Pandas says: "So far we've been reading parquet files from S3 with using pandas read_parquet" but this is not true. We have been reading from the trip-data on the web.
 * It also says "In our script, we write data to S3." But in Q1 we were instructed to write to local drive: "To make it easier to run it, you can write results to your local filesystem. E.g. here: output_file = f'taxi_type=yellow_year={year:04d}_month={month:02d}.parquet'"
 * At the start of Question 4, make it clearer that we are now talking about editing batch.py, not test_batch.py. Because in Question 3 we were editing test_batch.py. And Q4 doesn't indicate we've moved back to batch.py.
 * Is this really what you want in the pattern? "taxi_type=fhv/year={year:04d}/month={month:02d}/predictions.parquet" -- it makes for a strange output filename: "s3://nyc-duration-claudia/taxi_type=fhv/year=2022/month=03/predictions.parquet"
 * These in/out file paths are a bit confusing. When I run the batch it can put the output in the /out folder, but when I read it in the test script, it will not read it from /in, because it's not there. Why not eliminate the in/out bit and just have file paths? (export INPUT_FILE_PATTERN="s3://nyc-duration/in/{year:04d}-{month:02d}.parquet", export OUTPUT_FILE_PATTERN="s3://nyc-duration/out/...)
 * When making input and output paths configurable, the input path reads data of a completely different format depending on whether you use the default_input_pattern (which reads nyc taxi data from the trip data site) or INPUT_FILE_PATTERN, which reads the processed data from s3 containing only the ride ID and prediction columns. Reading the latter causes further processing of the data to fail.
+* Questions 5 and 6 are similarly obtuse.

@@ -1,0 +1,8 @@
+pandas
+numpy
+hyperopt
+pickle
+notebook
+jupyterlab
+mlflow==2.12.1
+scikit-learn==1.5.0
